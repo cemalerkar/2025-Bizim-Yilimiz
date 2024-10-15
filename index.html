@@ -95,26 +95,32 @@
                 const targetHeader = document.createElement('h3');
                 targetHeader.textContent = `Hedef ${i + 1}: ${targets[i]}`; // Hedef ismini ekle
 
+                const inputContainer = document.createElement('div'); // Yeni kapsayıcı
+                inputContainer.classList.add('input-container'); // Kapsayıcıya sınıf ekle
+
                 const input = document.createElement('input');
                 input.type = 'text';
                 input.id = `input${person}-${i + 1}`;
-                input.placeholder = 'Yaptıklarınızı yazın...';
+                input.placeholder = 'Notunuzu yazın...';
 
                 const addButton = document.createElement('button');
                 addButton.textContent = '+';
                 addButton.onclick = () => addNote(person, i + 1);
 
+                inputContainer.appendChild(input); // Kapsayıcıya giriş kutusunu ekle
+                inputContainer.appendChild(addButton); // Kapsayıcıya butonu ekle
+
                 const notesList = document.createElement('ul');
                 notesList.id = `notes${person}-${i + 1}`;
 
                 targetDiv.appendChild(targetHeader);
-                targetDiv.appendChild(input);
-                targetDiv.appendChild(addButton);
+                targetDiv.appendChild(inputContainer); // Giriş kutusu ve butonu içeren kapsayıcıyı ekle
                 targetDiv.appendChild(notesList);
 
                 container.appendChild(targetDiv);
             }
         };
+
 
         window.addNote = (person, target) => {
             const input = document.getElementById(`input${person}-${target}`);

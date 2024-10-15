@@ -102,3 +102,91 @@ ul li button {
 ul li button:hover {
   background-color: #c82333;
 }
+
+/* Mobil uyumlu düzenlemeler */
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column; /* Dikey hizalama */
+    align-items: center; /* Ortala */
+  }
+
+  .container {
+    width: 90%; /* Mobil için genişlik %90 */
+    margin-bottom: 20px; /* Alt boşluk */
+  }
+
+  input {
+    width: 60%; /* Mobil için giriş kutusu genişliği %60 */
+  }
+
+  button {
+    width: 30%; /* Mobil için buton genişliği %30 */
+  }
+
+  h1 {
+    font-size: 1.5em; /* Mobil başlık boyutu */
+  }
+}
+/* Giriş kutusu ve butonları birleştiren kapsayıcı */
+.input-container {
+  display: flex; /* Flexbox kullanarak yan yana yerleştirme */
+  align-items: center; /* Dikey olarak ortalama */
+  margin-bottom: 10px; /* Her hedef arasına boşluk ekleme */
+}
+
+/* Giriş kutusu */
+input {
+  flex: 1; /* Giriş kutusu esnek genişlik */
+  padding: 8px;
+  background-color: #2c2c2c; /* Gri tonlu arka plan */
+  border: 1px solid #444; /* Sınır rengi */
+  border-radius: 4px;
+  color: #ffffff; /* Beyaz yazı */
+}
+
+/* Buton stili */
+button {
+  padding: 8px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px; /* Giriş kutusu ile buton arasında boşluk */
+}
+
+@media (max-width: 768px) {
+  /* Mobil uyumlu düzenlemeler */
+  input {
+    width: 60%; /* Mobil için giriş kutusu genişliği %60 */
+  }
+
+  button {
+    width: 30%; /* Mobil için buton genişliği %30 */
+  }
+}
+/* Buton stili */
+button {
+  padding: 8px 12px; /* Buton içindeki boşluk */
+  min-width: 50px; /* Minimum genişlik belirle */
+  background-color: #28a745; /* Yeşil arka plan */
+  color: white; /* Beyaz yazı */
+  border: none; /* Sınır yok */
+  border-radius: 5px; /* Kenar yuvarlama */
+  cursor: pointer; /* İşaretçi değişimi */
+  margin-left: 10px; /* Giriş kutusu ile buton arasında boşluk */
+  flex-shrink: 0; /* Butonun boyutunu korumasını sağla */
+}
+
+button.delete-button {
+  /* Silme butonu için özel stil */
+  background-color: #dc3545; /* Kırmızı arka plan */
+}
+
+button:hover {
+  background-color: #218838; /* Hover durumunda yeşil ton değişimi */
+}
+
+button.delete-button:hover {
+  background-color: #c82333; /* Hover durumunda kırmızı ton değişimi */
+}
