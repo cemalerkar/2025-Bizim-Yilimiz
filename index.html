@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Bizim Yılımız</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <h1>2025 Bizim Yılımız</h1>
+
+    <div class="wrapper">
+        <div class="container" id="person1Container">
+            <h2>Zeynep</h2>
+        </div>
+
+        <div class="container" id="person2Container">
+            <h2>Cemal</h2>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getDatabase, ref, push, remove, onValue } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDn1blxTVVpal72k2BuR-yPsdzM7h7BSr8",
+            authDomain: "bizimyilimiz.firebaseapp.com",
+            databaseURL:
+                "https://bizimyilimiz-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "bizimyilimiz",
+            storageBucket: "bizimyilimiz.appspot.com",
+            messagingSenderId: "569819222872",
+            appId: "1:569819222872:web:f4b0e2c206449116af8b2d",
+            measurementId: "G-3NL3RN2MCB",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const targets = [
+            "Kendini anla",
+            "Yeni şeyler öğren",
+            "Daha maceraperest ol",
+            "Fark yarat",
+            "Maddi durumunu düzelt",
+            "Ani yaşa",
+            "Sevdiklerinle birleş",
+            "Daha fazla yemek yap",
+            "Bağımsız ol",
+            "Odaklan",
+            "Müzik yap",
+            "Daha iyi insan ol",
+            "Sağlıklı ol",
+            "Hayvan edin",
+            "Mutlu ol",
+            "İşini sev",
+            "Kötü alışkanlıkları bırak",
+            "İç huzurunu bul",
+            "Daha çok arkadaş edin",
+            "Doğanın keyfini çıkar",
+            "Doğaüstü güç edin",
+            "Daha çok dışarı çık",
+            "Daha çok oku",
+            "Yarat",
+            "Değişimi başlat",
+            "Aptal ol (masanın üstünde dans etme vb gibi hareketler :D)",
+            "Daha düzenli ol",
+            "Aşkı bul",
+            "Rekabet et",
+            "Daha çok seyahat et",
+            "Kendini yeniden keşfet",
+            "İnan",
+            "Dans et",
+            "Gezegeni kurtar",
+            "Ünlü ol",
+            "Aile kur",
+            "Hayatını belgele (günlük vs.)",
+            "Seviş",
+            "Bir şey yap, inşaa et, kendin yap aktivitesi",
+            "Eğitime devam et",
+            "Cesaretle bir şey yap",
+            "Bağlandığın işi bitir",
+            "Beni mutlu eden 100 şey (para harici)"
+        ];
+
+        const createTargets = (person) => {
+            const container = document.getElementById(`person${person}Container`);
+
+            for (let i = 0; i < targets.length; i++) {
+                const targetDiv = document.createElement('div');
+                targetDiv.classList.add('target');
+
+                const targetHeader = document.createElement('h3');
+                targetHeader.textContent = `Hedef ${i + 1}: ${targets[i]}`; // Hedef ismini ekle
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `input${person}-${i + 1}`;
+                input.placeholder = 'Yaptıklarınızı yazın...';
+
+                const addButton = document.createElement('button');
+                addButton.textContent = '+';
+                addButton.onclick = () => addNote(person, i + 1);
+
+                const notesList = document.createElement('ul');
+                notesList.id = `notes${person}-${i + 1}`;
+
+                targetDiv.appendChild(targetHeader);
+                targetDiv.appendChild(input);
+                targetDiv.appendChild(addButton);
+                targetDiv.appendChild(notesList);
+
+                container.appendChild(targetDiv);
+            }
+        };
+
+        window.addNote = (person, target) => {
+            const input = document.getElementById(`input${person}-${target}`);
+            const note = input.value.trim();
+
+            if (note) {
+                const notesRef = ref(db, `person${person}/target${target}`);
+                push(notesRef, note);
+                input.value = '';
+            }
+        };
+
+        window.deleteNote = (person, target, noteId) => {
+            const noteRef = ref(db, `person${person}/target${target}/${noteId}`);
+            remove(noteRef);
+        };
+
+        window.loadNotes = (person, target) => {
+            const notesList = document.getElementById(`notes${person}-${target}`);
+            const notesRef = ref(db, `person${person}/target${target}`);
+
+            onValue(notesRef, (snapshot) => {
+                notesList.innerHTML = '';
+                snapshot.forEach((childSnapshot) => {
+                    const noteId = childSnapshot.key;
+                    const noteText = childSnapshot.val();
+
+                    const li = document.createElement('li');
+                    li.textContent = noteText;
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = '-';
+                    deleteButton.onclick = () => deleteNote(person, target, noteId);
+
+                    li.appendChild(deleteButton);
+                    notesList.appendChild(li);
+                });
+            });
+        };
+
+        window.onload = () => {
+            createTargets(1);
+            createTargets(2);
+
+            for (let i = 1; i <= 43; i++) {
+                loadNotes(1, i);
+                loadNotes(2, i);
+            }
+        };
+    </script>
+</body>
+
+</html>

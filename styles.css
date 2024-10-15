@@ -1,0 +1,104 @@
+/* Genel sayfa stili */
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #121212; /* Koyu arka plan */
+  color: #e0e0e0; /* Açık gri metin rengi */
+}
+
+/* Başlık */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(
+    90deg,
+    #8e44ad,
+    #e67e22
+  ); /* Mor dan turuncuya geçişli */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Başlık yazı rengini degrade yap */
+}
+
+/* Kişiler için konteyner */
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Her bir kişinin not kutusu */
+.container {
+  width: 45%;
+  background-color: #1e1e1e; /* Koyu gri arka plan */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Hafif gölge efekti */
+}
+
+/* Hedef başlıkları */
+.target h3 {
+  color: #bdbdbd; /* Orta tonlu gri başlık rengi */
+  margin-bottom: 5px;
+}
+
+/* Hedef kutucukları arası boşluk */
+.target {
+  margin-bottom: 10px;
+}
+
+/* Giriş kutusu */
+input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 10px;
+  background-color: #2c2c2c; /* Gri tonlu arka plan */
+  border: 1px solid #444; /* Sınır rengi */
+  border-radius: 4px;
+  color: #ffffff; /* Beyaz yazı */
+}
+
+/* Giriş kutusuna odaklanıldığında sınır değişikliği */
+input:focus {
+  border-color: #28a745;
+  outline: none;
+}
+
+/* Buton stili */
+button {
+  padding: 8px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Not listesinin düzeni */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Silme butonu */
+ul li button {
+  background-color: #dc3545;
+  margin-left: 10px;
+}
+
+ul li button:hover {
+  background-color: #c82333;
+}
