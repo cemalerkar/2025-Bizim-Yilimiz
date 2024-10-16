@@ -135,7 +135,19 @@
 
         window.deleteNote = (person, target, noteId) => {
             const noteRef = ref(db, `person${person}/target${target}/${noteId}`);
-            remove(noteRef);
+
+            // Silmeden önce notu al ve veritabanına ekle
+            onValue(noteRef, (snapshot) => {
+                const noteText = snapshot.val();
+
+                if (noteText) {
+                    const deletedNotesRef = ref(db, `deletedNotes/person${person}/target${target}`);
+                    push(deletedNotesRef, noteText); // Silinen notu deletedNotes yoluna kaydet
+                }
+
+                // Notu veritabanından sil
+                remove(noteRef);
+            }, { onlyOnce: true }); // Veriyi aldıktan sonra bir kez çalışmasını sağlar
         };
 
         window.loadNotes = (person, target) => {
